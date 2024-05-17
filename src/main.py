@@ -7,3 +7,6 @@ app = FastAPI()
 def index():
     return "Hello"
 
+@app.get("/endpoint")
+def endpoint():
+    return "Endpoint"
