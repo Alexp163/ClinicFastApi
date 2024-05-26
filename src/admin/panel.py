@@ -10,5 +10,9 @@ class ClinicModelView(ModelView, model=Clinic):
 
 def register_admin(app: FastAPI, engine: AsyncEngine):
     admin = Admin(app, engine)
+    admin.add_view(ClinicModelView)
+
+
+
 
 
