@@ -3,15 +3,18 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class ClinicReadSchema(BaseModel):
+class BuildingCreateSchema(BaseModel):
+    name: str
+    profile: str
+    year_release: str
+    floors: str
+
+
+class BuildingReadSchema(BaseModel):
     id: int
     name: str
-    address: str
-    # created_at: datetime  - не запускается при снятии коммента
-    # updated_at: datetime
-
-
-class ClinicCreateSchema(BaseModel):
-    name: str
-    address: str
-
+    profile: str
+    year_release: str
+    floors: str
+    created_at: datetime
+    updated_at: datetime

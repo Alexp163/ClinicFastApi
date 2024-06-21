@@ -1,11 +1,16 @@
 from pydantic import BaseModel
 
+from datetime import datetime
+
+
 class UserReadSchema(BaseModel):
     id: int
     name: str
     age: str
     email: str
     address: str
+    created_at: datetime
+    updated_at: datetime
 
 
 class UserCreateSchema(BaseModel):

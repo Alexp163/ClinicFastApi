@@ -1,3 +1,3 @@
-from building.models import Clinic
-from building.models import Corpus
-
+from building.models import Building
+from clinic.models import Clinic
+from users.models import User

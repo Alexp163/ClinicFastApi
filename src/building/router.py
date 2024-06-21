@@ -1,45 +1,45 @@
 from fastapi import APIRouter, Depends
 
-from .models import Clinic
+from .models import Building
 from database import get_async_session
 from sqlalchemy import select, insert, delete, update
 
-from .schemas import ClinicReadSchema, ClinicCreateSchema
+from .schemas import BuildingCreateSchema, BuildingReadSchema
 
 router = APIRouter()
 
 
-@router.get("/clinics")
-async def get_clinics(session = Depends(get_async_session)) ->list[ClinicReadSchema]:
-    statement = select(Clinic)
+@router.post("/building")  # 1) создание отдельной постройки(здания)
+async def create_building(building: BuildingCreateSchema, session=Depends(get_async_session)) -> BuildingCreateSchema:
+    statement = insert(Building).values(
+        name=building.name,
+        profile=building.profile,
+        year_release=building.year_release,
+        floors=building.floors
+    ).returning(Building)
+    result = await session.scalar(statement)
+    await session.commit()
+    return result
+
+
+@router.get("/buildings")  # 2) получение данных о всех постройках(зданиях клиники)
+async def get_buildings(session=Depends(get_async_session)) ->list[BuildingReadSchema]:
+    statement = select(Building)
     result = await session.scalars(statement)
     return list(result)
 
 
-@router.get("/clinics/{clinic_id}")
-async def get_clinic_by_id(clinic_id: int, session = Depends(get_async_session)) ->ClinicCreateSchema:
-    statement = select(Clinic).where(Clinic.id == clinic_id)
+@router.get("/buildings/{building_id}")  # 3) получение данных о здании клиники по id
+async def get_building_by_id(building_id: int, session=Depends(get_async_session)) -> BuildingReadSchema:
+    statement = select(Building).where(Building.id == building_id)
     result = await session.scalar(statement)
     return result
 
 
-@router.post("/clinic")
-async def create_clinic(clinic: ClinicCreateSchema, session = Depends(get_async_session)) -> ClinicCreateSchema:
-    statement = insert(Clinic).values(
-        name=clinic.name,
-        address=clinic.address
-    ).returning(Clinic)
-    result = await session.scalar(statement)
-    await session.commit()
-    return result
-
-
-@router.delete("/clinics/{clinic_id}")
-async def delete_clinic_by_id(clinic_id: int, session = Depends(get_async_session)):
-    statement = delete(Clinic).where(Clinic.id == clinic_id)
+@router.delete("/buildings/{building_id}")  # 4) удаление здания клиники по id
+async def delete_building_by_id(building_id: int, session=Depends(get_async_session)):
+    statement = delete(Building).where(Building.id == building_id)
     await session.execute(statement)
     await session.commit()
     return "ok"
-
-
 
