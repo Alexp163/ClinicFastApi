@@ -14,3 +14,8 @@ class ClinicReadSchema(BaseModel):
 class ClinicCreateSchema(BaseModel):
     name: str
     address: str
+
+
+class ClinicUpdateSchema(BaseModel):
+    name: str
+    address: str

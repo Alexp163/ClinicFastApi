@@ -18,3 +18,10 @@ class BuildingReadSchema(BaseModel):
     floors: str
     created_at: datetime
     updated_at: datetime
+
+
+class BuildingUpdateSchema(BaseModel):
+    name: str
+    profile: str
+    year_release: str
+    floors: str
