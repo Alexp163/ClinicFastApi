@@ -21,7 +21,7 @@ async def create_clinic(clinic: ClinicCreateSchema, session=Depends(get_async_se
 
 
 @router.get("/")  # 2) получает данные о всех клиниках
-async def get_clinics(session=Depends(get_async_session)) ->list[ClinicReadSchema]:
+async def get_clinics(session=Depends(get_async_session)) -> list[ClinicReadSchema]:
     statement = select(Clinic)
     result = await session.scalars(statement)
     return list(result)

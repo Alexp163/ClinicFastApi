@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from typing import AsyncGenerator
 
 
-SQLALCHEMY_DATABASE_URI = "postgresql+asyncpg://postgres:1234@localhost:5432/clinic_api"
+SQLALCHEMY_DATABASE_URI = "postgresql+asyncpg://alex:12345@172.18.0.1:5432/clinic"
 engine = create_async_engine(SQLALCHEMY_DATABASE_URI)
 async_session_maker = sessionmaker(
     engine,
