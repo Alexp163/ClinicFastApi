@@ -9,7 +9,7 @@ router = APIRouter(tags=["users"], prefix="/users")
 
 
 @router.post("/")  # 1) Создание пользователя
-async def create_user(user: UserCreateSchema, session=Depends(get_async_session)) -> UserReadSchema:
+async def create_user(user: UserCreateSchema, session=Depends(get_async_session)) -> UserCreateSchema:
     statement = insert(User).values(
         name=user.name,
         age=user.age,
@@ -45,7 +45,7 @@ async def delete_users_by_id(user_id: int, session=Depends(get_async_session)):
 
 
 @router.put("/{user_id}")
-async def update_user_by_id(user_id: int, user: UserUpdateSchema, session=Depends(get_async_session))  -> UserReadSchema:
+async def update_user_by_id(user_id: int, user: UserUpdateSchema, session=Depends(get_async_session))  -> UserUpdateSchema:
     statement = update(User).where(User.id == user_id).values(
         name=user.name,
         age=user.age,

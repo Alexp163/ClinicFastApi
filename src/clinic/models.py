@@ -3,6 +3,7 @@ from sqlalchemy.sql import func
 from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
 
+
 class Clinic(Base):
     __tablename__ = "clinics"
     id: Mapped[int] = mapped_column(primary_key=True)

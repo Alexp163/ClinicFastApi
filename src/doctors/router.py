@@ -3,7 +3,7 @@ from .models import Doctor
 from database import get_async_session
 from sqlalchemy import select, insert, delete, update
 
-from .schemas import DoctorCreateSchema, DoctorReadSchema
+from .schemas import DoctorCreateSchema, DoctorReadSchema, DoctorUpdateSchema
 
 router = APIRouter(tags=["doctors"], prefix="/doctors")
 
@@ -43,8 +43,14 @@ async def delete_doctor_by_id(doctor_id: int, session=Depends(get_async_session)
     return "ok"
 
 
-
-
-
-
-
+@router.put("/{doctor_id}")
+async def update_doctor_by_id(doctor_id: int, doctor: DoctorUpdateSchema, session=Depends(get_async_session)) -> DoctorUpdateSchema:
+    statement = update(Doctor).where(Doctor.id == doctor_id).values(
+        name=doctor.name,
+        special=doctor.special,
+        experience=doctor.experience,
+        working_hours=doctor.working_hours
+    ).returning(Doctor)
+    result = await session.scalar(statement)
+    await session.commit()
+    return result
