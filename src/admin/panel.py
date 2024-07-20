@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from sqladmin import Admin, ModelView
 from sqlalchemy.ext.asyncio import AsyncEngine
-from .dependecies import Clinic, Building, User, Doctor
+from .dependecies import Clinic, Building, User, Doctor, Department, Patient
 
 
 class ClinicModelView(ModelView, model=Clinic):
@@ -25,9 +25,22 @@ class DoctorModelView(ModelView, model=Doctor):
     form_excluded_columns = [Doctor.created_at, Doctor.updated_at]
 
 
+class DepartmentModelView(ModelView, model=Department):
+    column_list = [Department.profile, Department.director, Department.number_beds, Department.staff, Department.corpus]
+    form_excluded_columns = [Department.created_at, Department.updated_at]
+
+
+class PatientModelView(ModelView, model=Patient):
+    column_list = [Patient.name, Patient.age, Patient.address, Patient.diagnosis]
+    form_excluded_columns = [Patient.created_at, Patient.updated_at]
+
+
 def register_admin(app: FastAPI, engine: AsyncEngine):
     admin = Admin(app, engine)
     admin.add_view(ClinicModelView)
     admin.add_view(BuildingModelView)
     admin.add_view(UserModelView)
     admin.add_view(DoctorModelView)
+    admin.add_view(DepartmentModelView)
+    admin.add_view(PatientModelView)
+
