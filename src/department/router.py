@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, status
-from .models import Department
-from database import get_async_session
 from sqlalchemy import select, insert, delete, update
 
+from database import get_async_session
+from .models import Department
 from .schemas import DepartmentCreateSchema, DepartmentReadSchema, DepartmentUpdateSchema
 
 router = APIRouter(tags=["departments"], prefix="/departments")
@@ -22,14 +22,14 @@ async def create_department(department: DepartmentCreateSchema, session=Depends(
     return result
 
 
-@router.get("/")  # 2) Получает данные о всех отделениях
+@router.get("/", status_code=status.HTTP_202_ACCEPTED)  # 2) Получает данные о всех отделениях
 async def get_department(session=Depends(get_async_session)) -> list[DepartmentReadSchema]:
     statement = select(Department)
     result = await session.scalars(statement)
     return list(result)
 
 
-@router.get("/{department_id}")  # 3) получает данные об отделении по id
+@router.get("/{department_id}", status_code=status.HTTP_202_ACCEPTED)  # 3) получает данные об отделении по id
 async def get_department_by_id(department_id: int, session=Depends(get_async_session)) -> DepartmentReadSchema:
     statement = select(Department).where(Department.id == department_id)
     result = await session.scalar(statement)
@@ -43,7 +43,7 @@ async def delete_department_by_id(department_id: int, session=Depends(get_async_
     await session.commit()
 
 
-@router.put("/{department_id}")
+@router.put("/{department_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных
 async def update_department_by_id(department_id: int, department: DepartmentUpdateSchema, session=Depends(get_async_session)) ->DepartmentUpdateSchema:
     statement = update(Department).where(Department.id == department_id).values(
         profile=department.profile,

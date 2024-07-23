@@ -35,6 +35,12 @@ class PatientModelView(ModelView, model=Patient):
     form_excluded_columns = [Patient.created_at, Patient.updated_at]
 
 
+# class HospitalRoomModelView(ModelView, model=HospitalRoom):
+#     column_list = [HospitalRoom.number, HospitalRoom.number_beds, HospitalRoom.doctor, HospitalRoom.nurse,
+#                    HospitalRoom.department]
+#     form_excluded_columns = [HospitalRoom.created_at, HospitalRoom.updated_at]
+
+
 def register_admin(app: FastAPI, engine: AsyncEngine):
     admin = Admin(app, engine)
     admin.add_view(ClinicModelView)
@@ -43,4 +49,4 @@ def register_admin(app: FastAPI, engine: AsyncEngine):
     admin.add_view(DoctorModelView)
     admin.add_view(DepartmentModelView)
     admin.add_view(PatientModelView)
-
+    # admin.add_view(HospitalRoomModelView)

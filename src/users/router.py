@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 
 from .models import User
 from database import get_async_session
@@ -8,7 +8,7 @@ from .schemas import UserReadSchema, UserCreateSchema, UserUpdateSchema
 router = APIRouter(tags=["users"], prefix="/users")
 
 
-@router.post("/")  # 1) Создание пользователя
+@router.post("/", status_code=status.HTTP_201_CREATED)  # 1) Создание пользователя
 async def create_user(user: UserCreateSchema, session=Depends(get_async_session)) -> UserCreateSchema:
     statement = insert(User).values(
         name=user.name,
@@ -22,30 +22,29 @@ async def create_user(user: UserCreateSchema, session=Depends(get_async_session)
     return result
 
 
-@router.get("/")  # 2) получает данные о всех пользователях
+@router.get("/", status_code=status.HTTP_202_ACCEPTED)  # 2) получает данные о всех пользователях
 async def get_users(session=Depends(get_async_session)) -> list[UserReadSchema]:
     statement = select(User)
     result = await session.scalars(statement)
     return list(result)
 
 
-@router.get("/{user_id}")  # 3) Получение данных о пользователе по id
+@router.get("/{user_id}", status_code=status.HTTP_202_ACCEPTED)  # 3) Получение данных о пользователе по id
 async def get_user_by_id(user_id: int, session=Depends(get_async_session)) -> UserReadSchema:
     statement = select(User).where(User.id == user_id)
     result = await session.scalar(statement)
     return result
 
 
-@router.delete("/{user_id}")  # 4) Удаление данных о пользователе по id
-async def delete_users_by_id(user_id: int, session=Depends(get_async_session)):
+@router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)  # 4) Удаление данных о пользователе по id
+async def delete_users_by_id(user_id: int, session=Depends(get_async_session)) -> None:
     statement = delete(User).where(User.id == user_id)
     await session.execute(statement)
     await session.commit()
-    return "ok"
 
 
-@router.put("/{user_id}")
-async def update_user_by_id(user_id: int, user: UserUpdateSchema, session=Depends(get_async_session))  -> UserUpdateSchema:
+@router.put("/{user_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных
+async def update_user_by_id(user_id: int, user: UserUpdateSchema, session=Depends(get_async_session)) -> UserUpdateSchema:
     statement = update(User).where(User.id == user_id).values(
         name=user.name,
         age=user.age,
