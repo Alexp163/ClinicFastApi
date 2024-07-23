@@ -57,3 +57,4 @@ async def update_building_by_id(building_id: int, building: BuildingUpdateSchema
     return result
 
 
+
