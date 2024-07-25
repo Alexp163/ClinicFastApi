@@ -4,4 +4,4 @@ from clinic.models import *
 from doctors.models import *
 from department.models import *
 from patients.models import *
-# from hospital_room import *
+from hospital_room.models import *

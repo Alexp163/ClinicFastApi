@@ -1,10 +1,12 @@
-from database import Base
-from sqlalchemy.sql import func
-from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
 
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.sql import func
 
-class Clinic(Base):
+from database import Base
+
+
+class Clinic(Base):  # модель клиники
     __tablename__ = "clinics"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column()

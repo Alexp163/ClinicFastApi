@@ -1,9 +1,8 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from typing import AsyncGenerator
 
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_DATABASE_URI = "postgresql+asyncpg://alex:12345@172.18.0.1:5432/clinic"
 engine = create_async_engine(SQLALCHEMY_DATABASE_URI)

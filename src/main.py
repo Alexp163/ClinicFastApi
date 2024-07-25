@@ -7,7 +7,7 @@ from clinic.router import router as clinic_router
 from doctors.router import router as doctor_router
 from department.router import router as department_router
 from patients.router import router as patient_router
-# from hospital_room.router import router as hospital_room_router
+from hospital_room.router import router as hospital_room_router
 
 
 app = FastAPI()
@@ -17,7 +17,7 @@ app.include_router(clinic_router)
 app.include_router(doctor_router)
 app.include_router(department_router)
 app.include_router(patient_router)
-# app.include_router(hospital_room_router)
+app.include_router(hospital_room_router)
 
 register_admin(app, engine)
 
