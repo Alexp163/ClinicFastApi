@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends, status
-
-from .models import Clinic
-from database import get_async_session
 from sqlalchemy import select, insert, delete, update
 
+from database import get_async_session
+from .models import Clinic
 from .schemas import ClinicReadSchema, ClinicCreateSchema, ClinicUpdateSchema
 
 router = APIRouter(tags=["clinics"], prefix="/clinics")
@@ -41,7 +40,7 @@ async def delete_clinic_by_id(clinic_id: int, session=Depends(get_async_session)
     await session.commit()
 
 
-@router.put("/{clinic_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных по клинике
+@router.put("/{clinic_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных по клинике по id
 async def update_clinic_by_id(clinic_id: int, clinic: ClinicUpdateSchema,
                               session=Depends(get_async_session)) -> ClinicUpdateSchema:
     statement = update(Clinic).where(Clinic.id == clinic_id).values(

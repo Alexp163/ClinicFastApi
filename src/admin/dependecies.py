@@ -6,3 +6,4 @@ from department.models import Department
 from patients.models import Patient
 from hospital_room.models import HospitalRoom
 from personnel.models import Personnel
+from position.models import Position
