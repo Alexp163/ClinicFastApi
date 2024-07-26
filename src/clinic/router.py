@@ -41,8 +41,9 @@ async def delete_clinic_by_id(clinic_id: int, session=Depends(get_async_session)
     await session.commit()
 
 
-@router.put("/{clinic_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных
-async def update_clinic_by_id(clinic_id: int, clinic: ClinicUpdateSchema, session=Depends(get_async_session)) -> ClinicUpdateSchema:
+@router.put("/{clinic_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных по клинике
+async def update_clinic_by_id(clinic_id: int, clinic: ClinicUpdateSchema,
+                              session=Depends(get_async_session)) -> ClinicUpdateSchema:
     statement = update(Clinic).where(Clinic.id == clinic_id).values(
         name=clinic.name,
         address=clinic.address
