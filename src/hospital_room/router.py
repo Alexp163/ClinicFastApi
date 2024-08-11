@@ -5,7 +5,7 @@ from database import get_async_session
 from .models import HospitalRoom
 from .schemas import HospitalRoomCreateSchema, HospitalRoomReadSchema, HospitalRoomUpdateSchema
 
-router = APIRouter(tags=["hospital_room"], prefix="/hospital_room")
+router = APIRouter(tags=["hospital_rooms"], prefix="/hospital_rooms")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание палаты
