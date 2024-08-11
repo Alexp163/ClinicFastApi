@@ -9,8 +9,8 @@ class UserReadSchema(BaseModel):
     age: str
     email: str
     address: str
-    # created_at: datetime
-    # updated_at: datetime
+    created_at: datetime
+    updated_at: datetime
 
 
 class UserCreateSchema(BaseModel):

@@ -11,7 +11,7 @@ router = APIRouter(tags=["buildings"], prefix="/buildings")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание отдельной постройки(здания)
-async def create_building(building: BuildingCreateSchema, session=Depends(get_async_session)) -> BuildingCreateSchema:
+async def create_building(building: BuildingCreateSchema, session=Depends(get_async_session)) -> BuildingReadSchema:
     statement = insert(Building).values(
         name=building.name,
         profile=building.profile,
@@ -24,7 +24,7 @@ async def create_building(building: BuildingCreateSchema, session=Depends(get_as
 
 
 @router.get("/", status_code=status.HTTP_202_ACCEPTED)  # 2) получение данных о всех постройках(зданиях клиники)
-async def get_buildings(session=Depends(get_async_session)) ->list[BuildingReadSchema]:
+async def get_buildings(session=Depends(get_async_session)) -> list[BuildingReadSchema]:
     statement = select(Building)
     result = await session.scalars(statement)
     return list(result)
@@ -45,7 +45,8 @@ async def delete_building_by_id(building_id: int, session=Depends(get_async_sess
 
 
 @router.put("/{building_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных
-async def update_building_by_id(building_id: int, building: BuildingUpdateSchema, session=Depends(get_async_session)) -> BuildingUpdateSchema:
+async def update_building_by_id(building_id: int, building: BuildingUpdateSchema,
+                                session=Depends(get_async_session)) -> BuildingReadSchema:
     statement = update(Building).where(Building.id == building_id).values(
         name=building.name,
         profile=building.profile,

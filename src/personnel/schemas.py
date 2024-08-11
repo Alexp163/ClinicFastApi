@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -7,6 +9,8 @@ class PersonnelReadSchema(BaseModel):
     age: str  # возраст
     education: str  # образование
     experience: str  # опыт работы
+    created_at: datetime
+    updated_at: datetime
 
 
 class PersonnelCreateSchema(BaseModel):

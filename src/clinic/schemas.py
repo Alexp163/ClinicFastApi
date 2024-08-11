@@ -7,8 +7,8 @@ class ClinicReadSchema(BaseModel):
     id: int
     name: str
     address: str
-    # created_at: datetime
-    # updated_at: datetime
+    created_at: datetime
+    updated_at: datetime
 
 
 class ClinicCreateSchema(BaseModel):

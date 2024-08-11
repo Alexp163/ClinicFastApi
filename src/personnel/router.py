@@ -8,7 +8,8 @@ router = APIRouter(tags=["personnel"], prefix="/personnel")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание персонала
-async def create_personnel(personnel: PersonnelCreateSchema, session=Depends(get_async_session)) -> PersonnelCreateSchema:
+async def create_personnel(personnel: PersonnelCreateSchema,
+                           session=Depends(get_async_session)) -> PersonnelReadSchema:
     statement = insert(Personnel).values(
     name=personnel.name,  # Ф.И.О
     age=personnel.age,  # возраст
@@ -43,7 +44,7 @@ async def delete_personnel_by_id(personnel_id: int, session=Depends(get_async_se
 
 @router.put("/{personnel_id}", status_code=status.HTTP_200_OK)  # 5) обновление данных по персоналу
 async def update_personnel_by_id(personnel_id: int, personnel: PersonnelUpdateSchema,
-                                 session=Depends(get_async_session)) -> PersonnelUpdateSchema:
+                                 session=Depends(get_async_session)) -> PersonnelReadSchema:
     statement = update(Personnel).where(Personnel.id == personnel_id).values(
         name=personnel.name,  # Ф.И.О
         age=personnel.age,  # возраст

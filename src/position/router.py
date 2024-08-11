@@ -9,8 +9,8 @@ router = APIRouter(tags=["position"], prefix="/position")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание должности
-async def created_position(position: PositionCreateSchema, session=Depends(get_async_session)) -> PositionCreateSchema:
-    statement = insert(Position).values(
+async def created_position(position: PositionCreateSchema, session=Depends(get_async_session)) -> PositionReadSchema:
+    statement = insert(Position).values(  # statement-заявление
         title=position.title,
         duty=position.duty
     ).returning(Position)
@@ -42,7 +42,7 @@ async def delete_position_by_id(position_id: int, session=Depends(get_async_sess
 
 @router.put("/{position_id}", status_code=status.HTTP_200_OK)  # 5) обновление данных должности по id
 async def update_session_by_id(position_id: int, position: PositionUpdateSchema,
-                               session=Depends(get_async_session)) -> PositionUpdateSchema:
+                               session=Depends(get_async_session)) -> PositionReadSchema:
     statement = update(Position).where(Position.id == position_id).values(
         title=position.title,
         duty=position.duty

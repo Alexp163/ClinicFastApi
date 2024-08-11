@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -6,6 +8,8 @@ class HospitalRoomReadSchema(BaseModel):  # считать данные о па�
     number: str  # номер палаты
     number_beds: str  # количество коек
     nurse: str  # палатная медсестра
+    created_at: datetime
+    updated_at: datetime
 
 
 class HospitalRoomCreateSchema(BaseModel):  # создать данные о палате

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -8,6 +10,8 @@ class DepartmentReadSchema(BaseModel):  # считать данные об от�
     number_beds: str  # количество коек
     staff: str  # штат сотрудников
     corpus: str  # в каком корпусе находится отделение
+    created_at: datetime
+    updated_at: datetime
 
 
 class DepartmentCreateSchema(BaseModel):  # создать отделение

@@ -9,7 +9,7 @@ router = APIRouter(tags=["clinics"], prefix="/clinics")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание клиники
-async def create_clinic(clinic: ClinicCreateSchema, session=Depends(get_async_session)) -> ClinicCreateSchema:
+async def create_clinic(clinic: ClinicCreateSchema, session=Depends(get_async_session)) -> ClinicReadSchema:
     statement = insert(Clinic).values(
         name=clinic.name,
         address=clinic.address
@@ -42,7 +42,7 @@ async def delete_clinic_by_id(clinic_id: int, session=Depends(get_async_session)
 
 @router.put("/{clinic_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных по клинике по id
 async def update_clinic_by_id(clinic_id: int, clinic: ClinicUpdateSchema,
-                              session=Depends(get_async_session)) -> ClinicUpdateSchema:
+                              session=Depends(get_async_session)) -> ClinicReadSchema:
     statement = update(Clinic).where(Clinic.id == clinic_id).values(
         name=clinic.name,
         address=clinic.address

@@ -9,7 +9,8 @@ router = APIRouter(tags=["departments"], prefix="/departments")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание отделения
-async def create_department(department: DepartmentCreateSchema, session=Depends(get_async_session)) -> DepartmentCreateSchema:
+async def create_department(department: DepartmentCreateSchema,
+                            session=Depends(get_async_session)) -> DepartmentReadSchema:
     statement = insert(Department).values(
         profile=department.profile,
         director=department.director,
@@ -44,7 +45,8 @@ async def delete_department_by_id(department_id: int, session=Depends(get_async_
 
 
 @router.put("/{department_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных
-async def update_department_by_id(department_id: int, department: DepartmentUpdateSchema, session=Depends(get_async_session)) ->DepartmentUpdateSchema:
+async def update_department_by_id(department_id: int, department: DepartmentUpdateSchema,
+                                  session=Depends(get_async_session)) -> DepartmentReadSchema:
     statement = update(Department).where(Department.id == department_id).values(
         profile=department.profile,
         director=department.director,

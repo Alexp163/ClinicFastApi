@@ -9,7 +9,7 @@ router = APIRouter(tags=["patients"], prefix="/patients")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) Создание пациента
-async def create_patient(patient: PatientCreateSchema, session=Depends(get_async_session)) -> PatientCreateSchema:
+async def create_patient(patient: PatientCreateSchema, session=Depends(get_async_session)) -> PatientReadSchema:
     statement = insert(Patient).values(
         name=patient.name,  # ФИО пациента
         age=patient.age,  # возраст пациента
@@ -43,7 +43,8 @@ async def delete_patient_by_id(patient_id: int, session=Depends(get_async_sessio
 
 
 @router.put("/{patient_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных
-async def update_patient_by_id(patient_id: int, patient: PatientUpdateSchema, session=Depends(get_async_session)) -> PatientUpdateSchema:
+async def update_patient_by_id(patient_id: int, patient: PatientUpdateSchema,
+                               session=Depends(get_async_session)) -> PatientReadSchema:
     statement = update(Patient).where(Patient.id == patient_id).values(
         name=patient.name,  # ФИО пациента
         age=patient.age,  # возраст пациента

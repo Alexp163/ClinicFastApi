@@ -9,6 +9,8 @@ class DoctorReadSchema(BaseModel):
     special: str  # специальность
     experience: str  # стаж работы
     working_hours: str  # часы работы
+    created_at: datetime
+    updated_at: datetime
 
 
 class DoctorCreateSchema(BaseModel):

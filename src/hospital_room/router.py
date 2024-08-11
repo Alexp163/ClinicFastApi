@@ -9,7 +9,8 @@ router = APIRouter(tags=["hospital_room"], prefix="/hospital_room")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание палаты
-async def create_hospital_room(hospital_room: HospitalRoomCreateSchema, session=Depends(get_async_session)) -> HospitalRoomCreateSchema:
+async def create_hospital_room(hospital_room: HospitalRoomCreateSchema,
+                               session=Depends(get_async_session)) -> HospitalRoomReadSchema:
     statement = insert(HospitalRoom).values(
         number=hospital_room.number,
         number_beds=hospital_room.number_beds,
