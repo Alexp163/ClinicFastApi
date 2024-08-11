@@ -5,7 +5,7 @@ from sqlalchemy.sql import func
 
 
 class Patient(Base):
-    __tablename__ = "patients"
+    __tablename__ = "patient"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column()  # ФИО
     age: Mapped[str] = mapped_column()  # возраст

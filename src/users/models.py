@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "user"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column()
     age: Mapped[str] = mapped_column()

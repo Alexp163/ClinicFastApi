@@ -7,7 +7,7 @@ from database import Base
 
 
 class Clinic(Base):  # модель клиники
-    __tablename__ = "clinics"
+    __tablename__ = "clinic"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column()
     address: Mapped[str] = mapped_column()
