@@ -4,7 +4,7 @@ from database import get_async_session
 from sqlalchemy import select, insert, delete, update
 from .schemas import PersonnelCreateSchema, PersonnelUpdateSchema, PersonnelReadSchema
 
-router = APIRouter(tags=["personnel"], prefix="/personnel")
+router = APIRouter(tags=["personnels"], prefix="/personnels")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание персонала

@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class BuildingReadSchema(BaseModel):
     id: int
+    clinic_id: int | None
     name: str
     profile: str
     year_release: str
@@ -14,6 +15,7 @@ class BuildingReadSchema(BaseModel):
 
 
 class BuildingCreateSchema(BaseModel):
+    clinic_id: str | None
     name: str
     profile: str
     year_release: str
@@ -21,6 +23,7 @@ class BuildingCreateSchema(BaseModel):
 
 
 class BuildingUpdateSchema(BaseModel):
+    clinic_id: str | None
     name: str
     profile: str
     year_release: str

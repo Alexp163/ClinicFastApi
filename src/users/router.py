@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, status
-
-from .models import User
-from database import get_async_session
 from sqlalchemy import select, insert, delete, update
+
+from database import get_async_session
+from .models import User
 from .schemas import UserReadSchema, UserCreateSchema, UserUpdateSchema
 
 router = APIRouter(tags=["users"], prefix="/users")
@@ -44,7 +44,8 @@ async def delete_users_by_id(user_id: int, session=Depends(get_async_session)) -
 
 
 @router.put("/{user_id}", status_code=status.HTTP_200_OK)  # 5) Обновление данных
-async def update_user_by_id(user_id: int, user: UserUpdateSchema, session=Depends(get_async_session)) -> UserReadSchema:
+async def update_user_by_id(user_id: int, user: UserUpdateSchema,
+                            session=Depends(get_async_session)) -> UserReadSchema:
     statement = update(User).where(User.id == user_id).values(
         name=user.name,
         age=user.age,

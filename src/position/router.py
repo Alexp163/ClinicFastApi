@@ -5,7 +5,7 @@ from database import get_async_session
 from .models import Position
 from .schemas import PositionCreateSchema, PositionReadSchema, PositionUpdateSchema
 
-router = APIRouter(tags=["position"], prefix="/position")
+router = APIRouter(tags=["positions"], prefix="/positions")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)  # 1) создание должности

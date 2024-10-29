@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, status
-from .models import Doctor
-from database import get_async_session
 from sqlalchemy import select, insert, delete, update
 
+from database import get_async_session
+from .models import Doctor
 from .schemas import DoctorCreateSchema, DoctorReadSchema, DoctorUpdateSchema
 
 router = APIRouter(tags=["doctors"], prefix="/doctors")

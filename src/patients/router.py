@@ -13,8 +13,8 @@ async def create_patient(patient: PatientCreateSchema, session=Depends(get_async
     statement = insert(Patient).values(
         name=patient.name,  # ФИО пациента
         age=patient.age,  # возраст пациента
-        address=patient.address, # адрес пациента
-        diagnosis=patient.diagnosis # диагноз пациента
+        address=patient.address,  # адрес пациента
+        diagnosis=patient.diagnosis  # диагноз пациента
     ).returning(Patient)
     result = await session.scalar(statement)
     await session.commit()

@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends, status
-
-from .models import Building
-from database import get_async_session
 from sqlalchemy import select, insert, delete, update
 
+from database import get_async_session
+from .models import Building
 from .schemas import BuildingCreateSchema, BuildingReadSchema, \
     BuildingUpdateSchema
 

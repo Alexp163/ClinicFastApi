@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from sqladmin import Admin, ModelView
 from sqlalchemy.ext.asyncio import AsyncEngine
+
 from .dependecies import Clinic, Building, User, Doctor, Department, Patient, HospitalRoom, Personnel, Position
 
 

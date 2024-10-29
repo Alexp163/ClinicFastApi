@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class PatientReadSchema(BaseModel):
     id: int
+    doctor_id: str | None
     name: str  # ФИО пациента
     age: str  # возраст пациента
     address: str  # адрес пациента
@@ -14,6 +15,7 @@ class PatientReadSchema(BaseModel):
 
 
 class PatientCreateSchema(BaseModel):
+    doctor_id: str | None
     name: str  # ФИО пациента
     age: str  # возраст пациента
     address: str  # адрес пациента
@@ -21,6 +23,7 @@ class PatientCreateSchema(BaseModel):
 
 
 class PatientUpdateSchema(BaseModel):
+    doctor_id: str | None
     name: str  # ФИО пациента
     age: str  # возраст пациента
     address: str  # адрес пациента
