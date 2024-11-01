@@ -50,3 +50,4 @@ async def update_session_by_id(position_id: int, position: PositionUpdateSchema,
     result = await session.scalar(statement)
     await session.commit()
     return result
+
