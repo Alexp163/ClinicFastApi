@@ -51,3 +51,4 @@ async def update_session_by_id(position_id: int, position: PositionUpdateSchema,
     await session.commit()
     return result
 
+
